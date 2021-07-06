@@ -26,7 +26,7 @@
 
                 @auth
                     <li>
-                        <a href="" class="p-5">Name</a>
+                        <a href="" class="p-5">{{ auth()->user()->name }}</a>
                     </li>
                     <li>
                         {{-- Je laisse le commentaire pour rappel que ce n'est pas une bonne façon de faire, il est intéressant
@@ -37,7 +37,7 @@
                             @csrf
                             <button type="submit">Logout</button>
                         </form> --}}
-                        
+
                         <a href=" {{ route('logout') }} " class="p-5">Logout</a>
 
                     </li>

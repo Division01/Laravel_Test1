@@ -20,6 +20,10 @@ Route::get('/', function() {
     return view('home');
 })->name('home');
 
+Route::get('/home', function() {
+    return view('home');
+})->name('home');
+
 Route::get('/dashboard', [DashboardController::class, 'index'])
     ->name('dashboard')
     ->middleware('auth');
@@ -30,6 +34,8 @@ Route::get('/logout', [LogoutController::class, 'store'])->name('logout');
 Route::get('/login', [LoginController::class, 'index'])->name('login');
 Route::post('/login', [LoginController::class, 'store']);
 
+// A noter que le middleware est dans le controller register ici, pour monter la deuxième
+// facon d'incorporer les middleware. La premiere facon etant sur la route dashboard
 Route::get('/register', [RegisterController::class, 'index'])->name('register');
 Route::post('/register', [RegisterController::class, 'store']);
 
