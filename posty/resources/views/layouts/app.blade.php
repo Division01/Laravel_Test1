@@ -10,7 +10,7 @@
     </head>
     <body class="bg-gray-200">
         <nav class="p-6 bg-white flex justify-between mb-6">
-            <ul class="flex items-center">
+            <ul class="flex items-center" style="list-style-type:none">
                 <li>
                     <a href="" class="p-5">Home</a>
                 </li>
@@ -22,7 +22,7 @@
                 </li>
             </ul>
 
-            <ul class="flex items-center">
+            <ul class="flex items-center" style="list-style-type:none">
                 <li>
                     <a href="" class="p-5">Name</a>
                 </li>
