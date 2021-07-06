@@ -23,18 +23,25 @@
             </ul>
 
             <ul class="flex items-center" style="list-style-type:none">
-                <li>
-                    <a href="" class="p-5">Name</a>
-                </li>
-                <li>
-                    <a href="" class="p-5">Login</a>
-                </li>
-                <li>
-                    <a href=" {{ route('register') }} " class="p-5">Register</a>
-                </li>
-                <li>
-                    <a href="" class="p-5">Logout</a>
-                </li>
+
+                @auth
+                    <li>
+                        <a href="" class="p-5">Name</a>
+                    </li>
+                    <li>
+                        <a href="" class="p-5">Logout</a>
+                    </li>
+                @endauth
+
+                @guest
+                    <li>
+                        <a href="" class="p-5">Login</a>
+                    </li>
+                    <li>
+                        <a href=" {{ route('register') }} " class="p-5">Register</a>
+                    </li>
+                @endguest
+
             </ul>
         </nav>
 
