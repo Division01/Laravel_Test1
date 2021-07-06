@@ -11,4 +11,15 @@ class RegisterController extends Controller
     {
         return view('auth.register');
     }
+
+    public function store()
+    {
+        //dd - die dump will kill the page and anything you put in it
+        dd('abc');
+
+        //validation
+        //store user
+        // sign the user in
+        //redirect
+    }
 }
