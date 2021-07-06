@@ -9,7 +9,11 @@ class PostController extends Controller
 {
     public function index()
     {
-        return view('posts.index');
+        $posts = Post::get(); 
+
+        return view('posts.index', [
+            'posts' => $posts
+        ]);
     }
 
     public function store(Request $request)
@@ -18,9 +22,10 @@ class PostController extends Controller
             'body' => 'required'
         ]);
 
-        $request->user()->posts()->create([
-            'body' => $request->body
-        ]);
+        // $request->user()->posts()->create([
+        //     'body' => $request->body
+        // ]);
+        $request->user()->posts()->create($request->only('body'));
 
         return back();
     }
