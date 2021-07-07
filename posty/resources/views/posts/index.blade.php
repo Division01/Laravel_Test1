@@ -3,6 +3,8 @@
 @section('content')
     <div class="flex justify-center">
         <div class="w-8/12 bg-white p-6 rounded-lg">
+
+            {{-- Créer un nouveau post --}}
             <form actions=" {{ route('posts') }}" method="post" class="mb-4">
                 @csrf
                 <div class="mb-4">
@@ -22,6 +24,7 @@
                 </div>
             </form>
 
+            {{-- Si il existe des posts, on les affiche tous 1 a 1 --}}
             @if ($posts->count())
                 @foreach($posts as $post)
                 <div class="mb-4 bg-gray-100 rounded-lg ">
@@ -31,17 +34,16 @@
                     <p class="mb-2"> {{ $post->body }} </p>
 
 
-                    @if ($post->ownedBy(auth()->user()))
-                        <div class="flex items-center">
-                            <form action="{{ route('posts.destroy', $post) }}" method="POST">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="text-blue-500">Delete</button>
-                            </form>
-                        </div>
-                    @endif 
-
-
+                    {{-- Bouton Delete --}}
+                    @can('delete', $post)
+                        <form action="{{ route('posts.destroy', $post) }}" method="POST">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="text-blue-500">Delete</button>
+                        </form>
+                    @endcan 
+                    
+                    {{-- Boutons Likes et Unlike --}}
                     <div class="flex items-center">
                         @auth
                             @if (!$post->likedBy(auth()->user()))
@@ -52,7 +54,7 @@
                             </form>
 
                             @else 
-                            {{-- La deuxieme c'est qu'on peut pas utilisre la methode destroy en HTML apparemment, donc le @method sous le csrf --}}
+                            {{-- La deuxieme c'est qu'on peut pas utiliser la methode destroy en HTML apparemment, donc le @method sous le csrf --}}
                             <form action="{{ route('posts.likes', $post) }}" method="post" class="mr-1">
                                 @csrf
                                 @method('DELETE')
@@ -62,12 +64,17 @@
                             @endif
                         @endauth 
 
+                        {{-- Compteur des likes --}}
                         <span>{{ $post->likes->count() }} {{ Str::plural('like', 
                         $post->likes->count() ) }}</span>
+
                     </div>
                 @endforeach
 
-                {{ $posts->links() }}
+                {{-- Pour la pagination, differentes pages--}}
+                {{ $posts->links() }}   
+
+            
             @else
                 <p> There are no posts </p>
             @endif
