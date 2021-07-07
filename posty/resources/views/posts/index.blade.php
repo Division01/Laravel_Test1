@@ -31,22 +31,24 @@
                     <p class="mb-2"> {{ $post->body }} </p>
 
                     <div class="flex items-center">
-                        @if (!$post->likedBy(auth()->user()))
-                        {{-- Deux choses interessantes, la premiere ici c'est qu'on peut envoyer soit l'id soit le post --}}
-                        <form action="{{ route('posts.likes', $post->id) }}" method="post" class="mr-1">
-                            @csrf 
-                            <button type="submit" class="text-blue-500">Like</button>
-                        </form>
+                        @auth
+                            @if (!$post->likedBy(auth()->user()))
+                            {{-- Deux choses interessantes, la premiere ici c'est qu'on peut envoyer soit l'id soit le post --}}
+                            <form action="{{ route('posts.likes', $post->id) }}" method="post" class="mr-1">
+                                @csrf 
+                                <button type="submit" class="text-blue-500">Like</button>
+                            </form>
 
-                        @else 
-                        {{-- La deuxieme c'est qu'on peut pas utilisre la methode destroy en HTML apparemment, donc le @method sous le csrf --}}
-                        <form action="{{ route('posts.likes', $post) }}" method="post" class="mr-1">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="text-blue-500">Unlike</button>
-                        </form>
+                            @else 
+                            {{-- La deuxieme c'est qu'on peut pas utilisre la methode destroy en HTML apparemment, donc le @method sous le csrf --}}
+                            <form action="{{ route('posts.likes', $post) }}" method="post" class="mr-1">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="text-blue-500">Unlike</button>
+                            </form>
 
-                        @endif
+                            @endif
+                        @endauth 
 
                         <span>{{ $post->likes->count() }} {{ Str::plural('like', 
                         $post->likes->count() ) }}</span>

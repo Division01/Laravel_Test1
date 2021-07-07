@@ -9,9 +9,9 @@ class PostController extends Controller
 {
     public function index()
     {
-        
+        //le with est pour le eager loading et eviter les queries redondantes, timer 1h47 de la video
         //$posts = Post::get(); 
-        $posts = Post::paginate(5); 
+        $posts = Post::with(['user','likes'])->paginate(5); 
 
         return view('posts.index', [
             'posts' => $posts
