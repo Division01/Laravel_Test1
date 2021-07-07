@@ -4,6 +4,11 @@
     <div class="flex justify-center">
         <div class="w-8/12 bg-white p-6 rounded-lg">
 
+            @guest
+                <p> You're not signed in </p>
+            @endguest
+
+            @auth 
             {{-- Créer un nouveau post --}}
             <form actions=" {{ route('posts') }}" method="post" class="mb-4">
                 @csrf
@@ -23,6 +28,7 @@
                     <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded font-medium"> Post </button>
                 </div>
             </form>
+            @endauth 
 
             {{-- Si il existe des posts, on les affiche tous 1 a 1 --}}
             @if ($posts->count())
