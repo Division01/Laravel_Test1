@@ -11,7 +11,8 @@ class PostController extends Controller
     {
         //le with est pour le eager loading et eviter les queries redondantes, timer 1h47 de la video
         //$posts = Post::get(); 
-        $posts = Post::with(['user','likes'])->paginate(5); 
+        //$posts = Post::orderBy('created_at','desc' )->with(['user','likes'])->paginate(5); 
+        $posts = Post::latest()->with(['user','likes'])->paginate(5); 
 
         return view('posts.index', [
             'posts' => $posts
@@ -34,6 +35,10 @@ class PostController extends Controller
 
     public function destroy(Post $post)
     {
+        if (!$post->ownedBy(auth()->user())){
+            dd('no')
+        }
+
         $post->delete();
 
         return back();
