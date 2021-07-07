@@ -31,15 +31,15 @@
                     <p class="mb-2"> {{ $post->body }} </p>
 
 
-
-                    <div class="flex items-center">
-                        <form action="{{ route('posts.destroy', $post) }}" method="POST">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="text-blue-500">Delete</button>
-                        </form>
-                    </div>
-
+                    @if ($post->ownedBy(auth()->user()))
+                        <div class="flex items-center">
+                            <form action="{{ route('posts.destroy', $post) }}" method="POST">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="text-blue-500">Delete</button>
+                            </form>
+                        </div>
+                    @endif 
 
 
                     <div class="flex items-center">
