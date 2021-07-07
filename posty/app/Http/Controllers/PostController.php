@@ -7,6 +7,11 @@ use Illuminate\Http\Request;
 
 class PostController extends Controller
 {
+    public function __construct()
+    {
+        $this -> middleware(['auth'])->only(['store', 'destroy']);
+    }
+
     public function index()
     {
         //le with est pour le eager loading et eviter les queries redondantes, timer 1h47 de la video
