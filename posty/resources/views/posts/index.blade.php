@@ -34,6 +34,7 @@
             @if ($posts->count())
                 @foreach($posts as $post)
                     <x-post :post="$post"/>
+                    <div class="bg-white p-6 rounded-lg"></div>
                 @endforeach
 
                 {{-- Pour la pagination, differentes pages--}}
